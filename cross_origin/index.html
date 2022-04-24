@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FastAPI CORS demo</title>
+  </head>
+<body>
+<p>
+    The button below will send a ES fetch request to the API at http://localhost:8081/api/products.
+</p>
+<button id="press">Klick me to test the CORS setup ...</button>
+<p>
+<div id="output"></div>
+</p>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelector("#press").addEventListener("click", () => {
+        fetch("http://localhost:8081/api/products/")
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            document.querySelector('#output').textContent = `Succesfully received ${data.length} products`
+          }).catch(error => {
+            document.querySelector('#output').textContent = "Cross origin rules not working?"
+          })
+        })
+    })
+</script>
+</body>
+</html>
