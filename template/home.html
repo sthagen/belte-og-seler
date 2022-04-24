@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>Belte og Seler</title>
+  </head>
+  <body>
+    <h1>Welcome to the Belt and Braces service</h1>
+    <p>Search for product:
+      <form action="search" method="post">
+        <table>
+            <tr>
+                <td><label for="foos">Number of foos:</label></td>
+                <td><input type="number" min="1" max="5" name="foos" required></td>
+            </tr>
+            <tr>
+                <td><label for="bar">Bar:</label></td>
+                <td><select name="bar" required>
+                    <option value="s" selected>Small</option>
+                    <option value="m">Medium</option>
+                    <option value="l">Large</option>
+                    <option value="xxl">XXL</option>
+                </select>
+                </td>
+            </tr>
+        </table>
+        <button type="submit">Search</button>
+      </form>
+    </p>
+  </body>
+</html>
