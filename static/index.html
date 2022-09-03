@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="https://unpkg.com/tabulator-tables@5.3.0/dist/css/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.3.0/dist/js/tabulator.min.js"></script>
+</head>
+	<body>
+		<div id="example-table"></div>
+				
+				<script src="https://cdn.jsdelivr.net/npm/luxon/build/global/luxon.min.js"></script>
+				
+		<script type="text/javascript">
+
+var table = new Tabulator("#example-table", {
+    pagination:true, //enable pagination
+    paginationMode:"remote", //enable remote pagination
+    ajaxURL:"http://127.0.0.1:8000/users/default", //set url for ajax request
+    //ajaxParams:{token:"ABC123"}, //set any standard parameters to pass with the request
+    paginationSize:5, //optional parameter to request a certain number of rows per page
+    paginationInitialPage:1, //optional parameter to set the initial page to load
+    ajaxResponse: function (url, params, response) {
+      // Must configure with server side
+      let last_page = response.total / response.size;
+      return {
+        data: response.items,
+        last_page,
+      };
+    },
+    layout:"fitColumns", //fit columns to width of table (optional)
+    columns:[ //Define Table Columns
+        {title:"Name", field:"name", width:150},
+	{title:"E-Mail", field:"email", hozAlign:"left"},
+     ],
+
+});
+</script>
+	</body>
+</html>
