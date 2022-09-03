@@ -25,9 +25,12 @@ class User(SQLModel, table=True):
 
 
 class BuildInput(SQLModel):
-    description: str | None = 'INFO?'
-    source: str | None = 'SRC?'
-    version: str | None = 'VERSION?'
+    description: str | None = ''
+    source: str | None = ''
+    version: str | None = ''
+    start_ts: str = Field(default=dti.datetime.now(dti.timezone.utc).strftime('%Y-%m-%d %H:%M:%S.%f +00:00'))
+    target: str | None = Field(default='')
+    sha512: str | None = Field(default='cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e')
 
 
 class BuildOutput(BuildInput):
@@ -36,7 +39,6 @@ class BuildOutput(BuildInput):
 
 class Build(BuildInput, table=True):
     id: int | None = Field(default=None, primary_key=True)
-    start: str = Field(default=dti.datetime.now(dti.timezone.utc).strftime('%Y-%m-%d %H:%M:%S.%f +00:00'))
     product_id: int = Field(foreign_key="product.id")
     product: "Product" = Relationship(back_populates="builds")
 
