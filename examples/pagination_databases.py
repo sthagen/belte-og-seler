@@ -5,10 +5,9 @@ import uvicorn
 from databases import Database
 from faker import Faker
 from fastapi import FastAPI
-from pydantic import BaseModel
-
 from fastapi_pagination import LimitOffsetPage, Page, add_pagination
 from fastapi_pagination.ext.databases import paginate
+from pydantic import BaseModel
 
 faker = Faker()
 

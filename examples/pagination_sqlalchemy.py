@@ -3,13 +3,12 @@ from typing import Any, Iterator
 import uvicorn
 from faker import Faker
 from fastapi import Depends, FastAPI
+from fastapi_pagination import LimitOffsetPage, Page, add_pagination
+from fastapi_pagination.ext.sqlalchemy import paginate
 from pydantic import BaseModel
 from sqlalchemy import Column, Integer, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session, sessionmaker
-
-from fastapi_pagination import LimitOffsetPage, Page, add_pagination
-from fastapi_pagination.ext.sqlalchemy import paginate
 
 faker = Faker()
 

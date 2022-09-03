@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Request, Form, Depends, Cookie
+from fastapi import APIRouter, Cookie, Depends, Form, Request
+from fastapi.templating import Jinja2Templates
 from sqlmodel import Session
 from starlette.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
 
 from db import get_session
 from router.products import get_products

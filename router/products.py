@@ -1,9 +1,9 @@
-from fastapi import Depends, HTTPException, APIRouter
+from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
 
-from router.auth import get_current_user
 from db import get_session
-from model import Product, ProductOutput, ProductInput, Build, BuildInput, User
+from model import Build, BuildInput, Product, ProductInput, ProductOutput, User
+from router.auth import get_current_user
 
 router = APIRouter(prefix="/api/products")
 

@@ -6,10 +6,9 @@ from databases import Database
 from faker import Faker
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
-
 from fastapi_pagination import LimitOffsetPage, Page, add_pagination
 from fastapi_pagination.ext.databases import paginate
+from pydantic import BaseModel
 
 faker = Faker()
 
@@ -38,6 +37,7 @@ class UserOut(UserIn):
 
 
 app = FastAPI()
+
 
 @app.on_event("startup")
 async def on_startup() -> None:
@@ -77,7 +77,7 @@ async def get_users() -> Any:
 
 add_pagination(app)
 
-app.mount("/", StaticFiles(directory="static",html = True), name="static")
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 if __name__ == "__main__":
     uvicorn.run("pagination_databases_html:app")

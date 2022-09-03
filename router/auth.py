@@ -1,10 +1,10 @@
-from fastapi import Depends, HTTPException, APIRouter
+from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlmodel import Session, select
 from starlette import status
 
 from db import get_session
-from model import UserOutput, User
+from model import User, UserOutput
 
 URL_PREFIX = "/auth"
 router = APIRouter(prefix=URL_PREFIX)

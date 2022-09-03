@@ -1,20 +1,16 @@
 from unittest.mock import Mock
+
 from fastapi.testclient import TestClient
 
-from server import app
+from model import Product, ProductInput, User
 from router.products import add_product
-from model import ProductInput, User, Product
+from server import app
 
 client = TestClient(app)
 
 
 def test_add_product():
-    response = client.post("/api/products/",
-                           json={
-                               "foos": 7,
-                               "bar": "xxl"
-                           }, headers={'Authorization': 'Bearer rotor'}
-                           )
+    response = client.post("/api/products/", json={"foos": 7, "bar": "xxl"}, headers={'Authorization': 'Bearer rotor'})
     assert response.status_code == 200
     product = response.json()
     assert product['foos'] == 7

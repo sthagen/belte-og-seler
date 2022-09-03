@@ -11,4 +11,3 @@ def test_get_products():
     products = response.json()
     assert all(["foos" in c for c in products])
     assert all(["bar" in c for c in products])
-

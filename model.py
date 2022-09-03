@@ -1,5 +1,5 @@
-from sqlmodel import SQLModel, Field, Relationship, Column, VARCHAR
 from passlib.context import CryptContext
+from sqlmodel import VARCHAR, Column, Field, Relationship, SQLModel
 
 pwd_context = CryptContext(schemes=["bcrypt"])
 

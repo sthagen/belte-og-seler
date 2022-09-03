@@ -1,13 +1,12 @@
 import uvicorn
-from fastapi import FastAPI
-from fastapi import Request
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import SQLModel
 from starlette.responses import JSONResponse
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
 from db import engine
-from router import products, web, auth
+from router import auth, products, web
 from router.products import BadBuildException
 
 app = FastAPI(title="Belt and Braces")

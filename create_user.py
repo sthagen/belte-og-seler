@@ -6,10 +6,9 @@ A convenience script to create a user.
 
 from getpass import getpass
 
-from sqlmodel import SQLModel, Session, create_engine
+from sqlmodel import Session, SQLModel, create_engine
 
 from model import User
-
 
 engine = create_engine(
     "sqlite:///belte-og-seler.db",
