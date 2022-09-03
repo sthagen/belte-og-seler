@@ -71,8 +71,8 @@ def add_build(product_id: int, build_input: BuildInput, session: Session = Depen
     product = session.get(Product, product_id)
     if product:
         new_product = Build.from_orm(build_input, update={'product_id': product_id})
-        if new_product.end < new_product.start:
-            raise BadBuildException("Build end before start")
+        # if new_product.end < new_product.start:
+        #    raise BadBuildException("Build end before start")
         product.builds.append(new_product)
         session.commit()
         session.refresh(new_product)

@@ -1,3 +1,4 @@
+import datetime as dti
 from passlib.context import CryptContext
 from sqlmodel import VARCHAR, Column, Field, Relationship, SQLModel
 
@@ -24,9 +25,9 @@ class User(SQLModel, table=True):
 
 
 class BuildInput(SQLModel):
-    start: int
-    end: int
-    description: str
+    description: str | None = 'INFO?'
+    source: str | None = 'SRC?'
+    version: str | None = 'VERSION?'
 
 
 class BuildOutput(BuildInput):
@@ -35,6 +36,7 @@ class BuildOutput(BuildInput):
 
 class Build(BuildInput, table=True):
     id: int | None = Field(default=None, primary_key=True)
+    start: str = Field(default=dti.datetime.now(dti.timezone.utc).strftime('%Y-%m-%d %H:%M:%S.%f +00:00'))
     product_id: int = Field(foreign_key="product.id")
     product: "Product" = Relationship(back_populates="builds")
 
