@@ -1,6 +1,6 @@
-from typing import Any, Iterator
+from typing import Any, Iterator, no_type_check
 
-import uvicorn
+import uvicorn  # type: ignore
 from faker import Faker
 from fastapi import Depends, FastAPI
 from fastapi_pagination import LimitOffsetPage, Page, add_pagination
@@ -12,22 +12,23 @@ from sqlalchemy.orm import Session, sessionmaker
 
 faker = Faker()
 
-engine = create_engine("sqlite:///.db", connect_args={"check_same_thread": False})
+engine = create_engine('sqlite:///.db', connect_args={'check_same_thread': False})
 SessionLocal = sessionmaker(autocommit=True, autoflush=True, bind=engine)
 
 Base = declarative_base(bind=engine)
 
 
-class User(Base):
-    __tablename__ = "users"
+@no_type_check
+class User(Base):  # type: ignore
+    __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String, nullable=False)
     email = Column(String, nullable=False)
 
 
-Base.metadata.drop_all()
-Base.metadata.create_all()
+Base.metadata.drop_all()  # type: ignore
+Base.metadata.create_all()  # type: ignore
 
 
 class UserIn(BaseModel):
@@ -45,7 +46,7 @@ class UserOut(UserIn):
 app = FastAPI()
 
 
-@app.on_event("startup")
+@app.on_event('startup')
 def on_startup() -> None:
     session = SessionLocal()
 
@@ -63,7 +64,7 @@ def get_db() -> Iterator[Session]:
         db.close()
 
 
-@app.post("/users", response_model=UserOut)
+@app.post('/users', response_model=UserOut)
 def create_user(user_in: UserIn, db: Session = Depends(get_db)) -> User:
     user = User(name=user_in.name, email=user_in.email)
     db.add(user)
@@ -72,13 +73,13 @@ def create_user(user_in: UserIn, db: Session = Depends(get_db)) -> User:
     return user
 
 
-@app.get("/users/default", response_model=Page[UserOut])
-@app.get("/users/limit-offset", response_model=LimitOffsetPage[UserOut])
+@app.get('/users/default', response_model=Page[UserOut])
+@app.get('/users/limit-offset', response_model=LimitOffsetPage[UserOut])
 def get_users(db: Session = Depends(get_db)) -> Any:
     return paginate(db.query(User))
 
 
 add_pagination(app)
 
-if __name__ == "__main__":
-    uvicorn.run("pagination_sqlalchemy:app")
+if __name__ == '__main__':
+    uvicorn.run('pagination_sqlalchemy:app')

@@ -6,6 +6,6 @@ client = TestClient(app)
 
 
 def test_home():
-    response = client.get("/")
+    response = client.get('/')
     assert response.status_code == 200
-    assert "Braces" in response.text
+    assert 'Braces' in response.text

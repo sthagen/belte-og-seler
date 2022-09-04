@@ -6,8 +6,8 @@ client = TestClient(app)
 
 
 def test_get_products():
-    response = client.get("/api/products/")
+    response = client.get('/api/products/')
     assert response.status_code == 200
     products = response.json()
-    assert all(["foos" in c for c in products])
-    assert all(["bar" in c for c in products])
+    assert all(['product' in c for c in products])
+    assert all(['family' in c for c in products])

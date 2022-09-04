@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := all
 black = black -S -l 120 --target-version py310 *.py router test examples
-flake8 = flake8 *.py router test examples
+flake8 = flake8 --max-line-length 120 *.py router test examples
 isort = isort *.py router test examples
 pytest = pytest --asyncio-mode=strict --cov=server --cov-report term-missing:skip-covered --cov-branch --log-format="%(levelname)s %(message)s"
 types = mypy *.py router examples

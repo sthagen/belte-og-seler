@@ -1,7 +1,12 @@
 import datetime as dti
-from passlib.context import CryptContext
+
+from passlib.context import CryptContext  # type: ignore
 from sqlmodel import VARCHAR, Column, Field, Relationship, SQLModel
 
+EMPTY_SHA512 = (
+    'cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce'
+    '47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e'
+)
 pwd_context = CryptContext(schemes=['bcrypt'])
 
 
@@ -30,7 +35,8 @@ class BuildInput(SQLModel):
     version: str | None = ''
     timestamp: str = Field(default=dti.datetime.now(dti.timezone.utc).strftime('%Y-%m-%d %H:%M:%S.%f +00:00'))
     target: str | None = Field(default='')
-    sha512: str | None = Field(default='cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e')
+    sha512: str | None = Field(default=EMPTY_SHA512)
+
     class Config:
         schema_extra = {
             'example': {
@@ -39,7 +45,7 @@ class BuildInput(SQLModel):
                 'version': '2022.9.4',
                 'timestamp': '2022-09-04 19:20:21.123456 +00:00.',
                 'target': 'https://example.com/brm/family/product/version/',
-                'sha512': 'cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e',
+                'sha512': EMPTY_SHA512,
             }
         }
 
@@ -50,8 +56,8 @@ class BuildOutput(BuildInput):
 
 class Build(BuildInput, table=True):
     id: int | None = Field(default=None, primary_key=True)
-    product_id: int = Field(foreign_key="product.id")
-    product: "Product" = Relationship(back_populates="builds")
+    product_id: int = Field(foreign_key='product.id')
+    product: 'Product' = Relationship(back_populates='builds')
 
 
 class ProductInput(SQLModel):
@@ -60,18 +66,12 @@ class ProductInput(SQLModel):
     description: str
 
     class Config:
-        schema_extra = {
-            'example': {
-                'family': 'things',
-                'product': 'thing',
-                'description': 'The simple thing.'
-            }
-        }
+        schema_extra = {'example': {'family': 'things', 'product': 'thing', 'description': 'The simple thing.'}}
 
 
 class Product(ProductInput, table=True):
     id: int | None = Field(primary_key=True, default=None)
-    builds: list[Build] = Relationship(back_populates="product")
+    builds: list[Build] = Relationship(back_populates='product')
 
 
 class ProductOutput(ProductInput):

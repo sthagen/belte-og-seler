@@ -5,7 +5,7 @@ from db import get_session
 from model import Build, BuildInput, Product, ProductInput, ProductOutput, User
 from router.auth import get_current_user
 
-router = APIRouter(prefix="/api/products")
+router = APIRouter(prefix='/api/products')
 
 
 @router.get('/')
@@ -50,11 +50,9 @@ def remove_product(id: int, session: Session = Depends(get_session)) -> None:
 def change_product(id: int, new_data: ProductInput, session: Session = Depends(get_session)) -> Product:
     product = session.get(Product, id)
     if product:
+        product.family = new_data.family
+        product.product = new_data.product
         product.description = new_data.description
-        product.source = new_data.source
-        product.version = new_data.version
-        product.target = new_data.footargets
-        product.sha512 = new_data.sha512
         session.commit()
         return product
     else:
