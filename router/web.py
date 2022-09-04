@@ -18,6 +18,6 @@ def home(request: Request, products_cookie: str | None = Cookie(None)):
 
 
 @router.post('/search', response_class=HTMLResponse)
-def search(*, product: str = Form(...), request: Request, session: Session = Depends(get_session)):
-    products = get_products(product=product, session=session)
+def search(*, name: str = Form(...), request: Request, session: Session = Depends(get_session)):
+    products = get_products(name=name, session=session)
     return templates.TemplateResponse('search_results.html', {'request': request, 'products': products})

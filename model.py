@@ -62,11 +62,11 @@ class Build(BuildInput, table=True):
 
 class ProductInput(SQLModel):
     family: str
-    product: str
+    name: str
     description: str
 
     class Config:
-        schema_extra = {'example': {'family': 'things', 'product': 'thing', 'description': 'The simple thing.'}}
+        schema_extra = {'example': {'family': 'things', 'name': 'thing', 'description': 'The simple thing.'}}
 
 
 class Product(ProductInput, table=True):
