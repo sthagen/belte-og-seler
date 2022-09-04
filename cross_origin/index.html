@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>FastAPI CORS demo</title>
+    <title>Belte og Seler CORS demo</title>
   </head>
 <body>
 <p>
@@ -13,11 +13,11 @@
 <div id="output"></div>
 </p>
 <script>
-  const get_cars_endpoint = 'http://localhost:8081/api/products/'
+  const get_products_endpoint = 'http://localhost:8081/api/products/'
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('button').addEventListener('click', () => {
       const display = document.querySelector('#output')
-      fetch(get_cars_endpoint)
+      fetch(get_products_endpoint)
         .then(response => response.json())
         .then(data => { display.textContent = `Successfully received ${data.length} products` })
         .catch(error => { display.textContent = 'Either the CORS rules are not working or API server unreachable.' })

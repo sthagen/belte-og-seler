@@ -9,26 +9,26 @@ from db import engine
 from router import auth, products, web
 from router.products import BadBuildException
 
-app = FastAPI(title="Belt and Braces")
+app = FastAPI(title='Belt and Braces')
 app.include_router(web.router)
 app.include_router(products.router)
 app.include_router(auth.router)
 
 origins = [
-    "http://localhost:8081",
-    "http://localhost:8080",
+    'http://localhost:8081',
+    'http://localhost:8080',
 ]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=['*'],
+    allow_headers=['*'],
 )
 
 
-@app.on_event("startup")
+@app.on_event('startup')
 def on_startup():
     SQLModel.metadata.create_all(engine)
 
@@ -37,16 +37,16 @@ def on_startup():
 async def unicorn_exception_handler(request: Request, exc: BadBuildException):
     return JSONResponse(
         status_code=HTTP_422_UNPROCESSABLE_ENTITY,
-        content={"message": "Bad Trip"},
+        content={'message': 'Bad Build'},
     )
 
 
-# @app.middleware("http")
+# @app.middleware('http')
 # async def add_products_cookie(request: Request, call_next):
 #     response = await call_next(request)
-#     response.set_cookie(key="cars_cookie", value="you_were_here")
+#     response.set_cookie(key='products_cookie', value='you_were_already_here')
 #     return response
 
 
-if __name__ == "__main__":
-    uvicorn.run("server:app", port=8081, reload=True)
+if __name__ == '__main__':
+    uvicorn.run('server:app', host='127.0.0.1', port=8081, reload=True)

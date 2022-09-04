@@ -11,22 +11,22 @@ from sqlmodel import Session, SQLModel, create_engine
 from model import User
 
 engine = create_engine(
-    "sqlite:///belte-og-seler.db",
-    connect_args={"check_same_thread": False},  # Needed for SQLite
+    'sqlite:///belte-og-seler.db',
+    connect_args={'check_same_thread': False},  # Needed for SQLite
     echo=True,  # Log generated SQL
 )
 
 
-if __name__ == "__main__":
-    print("Creating tables (if necessary)")
+if __name__ == '__main__':
+    print('Creating tables (if necessary)')
     SQLModel.metadata.create_all(engine)
 
-    print("--------")
+    print('--------')
 
-    print("This script will create a user and save it in the database.")
+    print('This script will create a user and save it in the database.')
 
-    username = input("Please enter username\n")
-    pwd = getpass("Please enter password\n")
+    username = input('Please enter username\n')
+    pwd = getpass('Please enter password\n')
 
     with Session(engine) as session:
         user = User(username=username)

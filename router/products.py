@@ -8,26 +8,24 @@ from router.auth import get_current_user
 router = APIRouter(prefix="/api/products")
 
 
-@router.get("/")
-def get_products(bar: str | None = None, foos: int | None = None, session: Session = Depends(get_session)) -> list:
+@router.get('/')
+def get_products(product: str | None = None, session: Session = Depends(get_session)) -> list:
     query = select(Product)
-    if bar:
-        query = query.where(Product.bar == bar)
-    if foos:
-        query = query.where(Product.foos >= foos)
+    if product:
+        query = query.where(Product.product == product)
     return session.exec(query).all()
 
 
-@router.get("/{id}", response_model=ProductOutput)
+@router.get('/{id}', response_model=ProductOutput)
 def product_by_id(id: int, session: Session = Depends(get_session)) -> Product:
     product = session.get(Product, id)
     if product:
         return product
     else:
-        raise HTTPException(status_code=404, detail=f"No product with id={id}.")
+        raise HTTPException(status_code=404, detail=f'No product with id={id}.')
 
 
-@router.post("/", response_model=Product)
+@router.post('/', response_model=Product)
 def add_product(
     product_input: ProductInput, session: Session = Depends(get_session), user: User = Depends(get_current_user)
 ) -> Product:
@@ -38,35 +36,36 @@ def add_product(
     return new_product
 
 
-@router.delete("/{id}", status_code=204)
+@router.delete('/{id}', status_code=204)
 def remove_product(id: int, session: Session = Depends(get_session)) -> None:
     product = session.get(Product, id)
     if product:
         session.delete(product)
         session.commit()
     else:
-        raise HTTPException(status_code=404, detail=f"No product with id={id}.")
+        raise HTTPException(status_code=404, detail=f'No product with id={id}.')
 
 
-@router.put("/{id}", response_model=Product)
+@router.put('/{id}', response_model=Product)
 def change_product(id: int, new_data: ProductInput, session: Session = Depends(get_session)) -> Product:
     product = session.get(Product, id)
     if product:
-        product.baz = new_data.baz
-        product.quux = new_data.quux
-        product.bar = new_data.bar
-        product.foos = new_data.foos
+        product.description = new_data.description
+        product.source = new_data.source
+        product.version = new_data.version
+        product.target = new_data.footargets
+        product.sha512 = new_data.sha512
         session.commit()
         return product
     else:
-        raise HTTPException(status_code=404, detail=f"No product with id={id}.")
+        raise HTTPException(status_code=404, detail=f'No product with id={id}.')
 
 
 class BadBuildException(Exception):
     pass
 
 
-@router.post("/{product_id}/builds", response_model=Build)
+@router.post('/{product_id}/builds', response_model=Build)
 def add_build(product_id: int, build_input: BuildInput, session: Session = Depends(get_session)) -> Build:
     product = session.get(Product, product_id)
     if product:
@@ -78,4 +77,4 @@ def add_build(product_id: int, build_input: BuildInput, session: Session = Depen
         session.refresh(new_product)
         return new_product
     else:
-        raise HTTPException(status_code=404, detail=f"No product with id={id}.")
+        raise HTTPException(status_code=404, detail=f'No product with id={id}.')

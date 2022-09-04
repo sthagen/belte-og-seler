@@ -1,8 +1,8 @@
 from sqlmodel import Session, create_engine
 
 engine = create_engine(
-    "sqlite:///belte-og-seler.db",
-    connect_args={"check_same_thread": False},  # Needed for SQLite
+    'sqlite:///belte-og-seler.db',
+    connect_args={'check_same_thread': False},  # Needed for SQLite
     echo=True,  # Log generated SQL
 )
 
