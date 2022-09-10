@@ -4,14 +4,14 @@ from fastapi.testclient import TestClient
 
 from model import Product, ProductInput, User
 from router.products import add_product
-from server import app
+from server import BASE, app
 
 client = TestClient(app)
 
 
 def test_add_product():
     data = {'description': 'yes', 'name': 'oh', 'family': 'no'}
-    response = client.post('/api/products/', json=data, headers={'Authorization': 'Bearer rotor'})
+    response = client.post(f'{BASE}/api/products/', json=data, headers={'Authorization': 'Bearer rotor'})
     assert response.status_code == 200
     product = response.json()
     assert product['description'] == data['description']
