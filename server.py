@@ -62,4 +62,4 @@ async def unicorn_exception_handler(request: Request, exc: BadBuildException):
 
 if __name__ == '__main__':
     print(f'Starting notary service at https://{HOST}:{PORT}{BASE}/')
-    uvicorn.run('server:app', host=HOST, port=PORT, reload=True)
+    uvicorn.run('server:app', host=HOST, port=PORT, reload=True, headers=[('server', 'htsrv/2.1')])
