@@ -6,7 +6,7 @@ from starlette import status
 from db import get_session
 from model import User, UserOutput
 
-URL_PREFIX = '/x/auth'
+URL_PREFIX = '/auth'
 router = APIRouter(prefix=URL_PREFIX)
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f'{URL_PREFIX}/token')
 
