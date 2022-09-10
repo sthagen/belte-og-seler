@@ -11,7 +11,7 @@ from router.products import BadBuildException
 
 HOST = '127.0.0.1'
 PORT = 8003
-BASE = ''
+BASE = '/x'
 
 app = FastAPI(
     title='Belt and Braces',
@@ -24,7 +24,7 @@ app = FastAPI(
 
 app.include_router(web.router, prefix=BASE)
 app.include_router(products.router, prefix=BASE)
-app.include_router(auth.router, prefix=BASE)
+app.include_router(auth.router)  # , prefix=BASE)
 
 origins = [
     'http://localhost:8004',
