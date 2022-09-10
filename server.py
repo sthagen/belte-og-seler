@@ -9,14 +9,26 @@ from db import engine
 from router import auth, products, web
 from router.products import BadBuildException
 
-app = FastAPI(title='Belt and Braces')
-app.include_router(web.router)
-app.include_router(products.router)
-app.include_router(auth.router)
+HOST = '127.0.0.1'
+PORT = 8003
+BASE = ''
+
+app = FastAPI(
+    title='Belt and Braces',
+    openapi_url=f'{BASE}/api/v1/openapi.json',
+    docs_url=f'{BASE}/documentation',
+    redoc_url=None,
+    description='The blurb ...',
+    version='2022.9.7',
+)
+
+app.include_router(web.router, prefix=BASE)
+app.include_router(products.router, prefix=BASE)
+app.include_router(auth.router, prefix=BASE)
 
 origins = [
-    'http://localhost:8081',
-    'http://localhost:8080',
+    'http://localhost:8004',
+    'http://localhost:8003',
 ]
 
 app.add_middleware(
@@ -49,4 +61,5 @@ async def unicorn_exception_handler(request: Request, exc: BadBuildException):
 
 
 if __name__ == '__main__':
-    uvicorn.run('server:app', host='127.0.0.1', port=8081, reload=True)
+    print(f'Starting notary service at https://{HOST}:{PORT}{BASE}/')
+    uvicorn.run('server:app', host=HOST, port=PORT, reload=True)

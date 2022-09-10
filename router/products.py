@@ -60,7 +60,7 @@ def add_product(
 
 
 @router.delete('/{id}', status_code=204)
-def remove_product(id: int, session: Session = Depends(get_session)) -> None:
+def remove_product(id: int, session: Session = Depends(get_session), user: User = Depends(get_current_user)) -> None:
     product = session.get(Product, id)
     if product:
         session.delete(product)
@@ -70,7 +70,9 @@ def remove_product(id: int, session: Session = Depends(get_session)) -> None:
 
 
 @router.put('/{id}', response_model=Product)
-def change_product(id: int, new_data: ProductInput, session: Session = Depends(get_session)) -> Product:
+def change_product(
+    id: int, new_data: ProductInput, session: Session = Depends(get_session), user: User = Depends(get_current_user)
+) -> Product:
     product = session.get(Product, id)
     if product:
         product.family = new_data.family
@@ -89,6 +91,7 @@ def patch_product(
     name: str | None = None,
     description: str | None = None,
     session: Session = Depends(get_session),
+    user: User = Depends(get_current_user),
 ) -> Product:
     product = session.get(Product, id)
     if product:
@@ -109,7 +112,12 @@ class BadBuildException(Exception):
 
 
 @router.post('/{product_id}/builds', response_model=Build)
-def add_build(product_id: int, build_input: BuildInput, session: Session = Depends(get_session)) -> Build:
+def add_build(
+    product_id: int,
+    build_input: BuildInput,
+    session: Session = Depends(get_session),
+    user: User = Depends(get_current_user),
+) -> Build:
     product = session.get(Product, product_id)
     if product:
         new_product = Build.from_orm(build_input, update={'product_id': product_id})
@@ -130,8 +138,10 @@ def patch_product_build(
     description: str | None = None,
     version: str | None = None,
     target: str | None = None,
+    taxonomy: str | None = None,
     sha512: str | None = None,
     session: Session = Depends(get_session),
+    user: User = Depends(get_current_user),
 ) -> Build:
     product = session.get(Product, product_id)
     if product:
@@ -143,6 +153,8 @@ def patch_product_build(
                     build.version = version
                 if target:
                     build.target = target
+                if taxonomy:
+                    build.taxonomy = taxonomy
                 if sha512:
                     build.sha512 = sha512
                 product.builds[slot] = build

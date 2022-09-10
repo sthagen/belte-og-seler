@@ -35,6 +35,7 @@ class BuildInput(SQLModel):
     version: str | None = ''
     timestamp: str = Field(default=dti.datetime.now(dti.timezone.utc).strftime('%Y-%m-%d %H:%M:%S.%f +00:00'))
     target: str | None = Field(default='')
+    taxonomy: str | None = Field(default='')
     sha512: str | None = Field(default=EMPTY_SHA512)
 
     class Config:
@@ -45,6 +46,7 @@ class BuildInput(SQLModel):
                 'version': '2022.9.4',
                 'timestamp': '2022-09-04 19:20:21.123456 +00:00.',
                 'target': 'https://example.com/brm/family/product/version/',
+                'taxonomy': '{}',
                 'sha512': EMPTY_SHA512,
             }
         }
