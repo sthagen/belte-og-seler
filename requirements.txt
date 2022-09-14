@@ -3,7 +3,7 @@ aiosqlite==0.17.0
 bcrypt==4.0.0
 cryptography==38.0.1
 databases==0.6.1
-fastapi==0.83.0
+fastapi==0.84.0
 fastapi-pagination==0.10.0
 passlib==1.7.4
 python-jose==3.3.0
