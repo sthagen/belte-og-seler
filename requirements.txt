@@ -3,10 +3,10 @@ aiosqlite==0.18.0
 bcrypt==4.0.1
 cryptography==40.0.1
 databases==0.6.1
-fastapi==0.88.0
-fastapi-pagination==0.11.1
+fastapi==0.95.0
+fastapi-pagination==0.11.4
 passlib==1.7.4
 python-jose==3.3.0
-python-multipart==0.0.5
+python-multipart==0.0.6
 sqlmodel==0.0.8
 uvicorn==0.20.0
