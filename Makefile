@@ -74,7 +74,7 @@ clean:
 	@rm -f `find . -type f -name '*~' `
 	@rm -f `find . -type f -name '.*~' `
 	@rm -rf .cache htmlcov *.egg-info build dist/*
-	@rm -f .coverage .coverage.* *.log
+	@rm -f .coverage .coverage.* *.log .DS_Store
 	# python setup.py clean
 	@rm -fr site/*
 
