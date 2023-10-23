@@ -2,11 +2,11 @@ Jinja2==3.1.2
 aiosqlite==0.19.0
 bcrypt==4.0.1
 cryptography==41.0.4
-databases==0.6.1
+databases==0.8.0
 fastapi==0.104.0
 fastapi-pagination==0.12.11
 passlib==1.7.4
 python-jose==3.3.0
 python-multipart==0.0.6
-sqlmodel==0.0.8
+sqlmodel==0.0.9
 uvicorn==0.23.2
