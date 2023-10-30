@@ -1,0 +1,26 @@
+[book]
+authors = ["Stefan Hagen"]
+language = "en"
+multilingual = false
+src = "."
+title = "belte-og-seler"
+
+[preprocessor.embed]
+
+[build]
+builddir = "book"
+
+[output.html]
+default-theme = "coal"
+git-repository-url = "https://git.sr.ht/~sthagen/belte-og-seler"
+git-repository-icon = "fa-code-fork"
+mathjax-support = true
+no-section-label = true
+preferred-dark-theme = "navy"
+site-url = "/docs/belte-og-seler"
+
+[output.html.print]
+enable = false
+
+[output.html.fold]
+enable = false
