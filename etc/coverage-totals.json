@@ -1,3 +1,18 @@
 {
-  "belte-og-seler": {}
+  "belte-og-seler": {
+    "version": "7.3.2",
+    "timestamp": "2023-12-02T15:14:09.312208",
+    "branch_coverage": true,
+    "show_contexts": true,
+    "covered_lines": 23,
+    "num_statements": 27,
+    "percent_covered": 82.75862068965517,
+    "percent_covered_display": "83",
+    "missing_lines": 4,
+    "excluded_lines": 0,
+    "num_branches": 2,
+    "num_partial_branches": 1,
+    "covered_branches": 1,
+    "missing_branches": 1
+  }
 }
