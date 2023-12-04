@@ -8,5 +8,5 @@ fastapi-pagination==0.12.13
 passlib==1.7.4
 python-jose==3.3.0
 python-multipart==0.0.6
-sqlmodel==0.0.13
+sqlmodel==0.0.14
 uvicorn==0.24.0.post1
