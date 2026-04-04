@@ -9,4 +9,4 @@ passlib==1.7.4
 python-jose==3.5.0
 python-multipart==0.0.22
 sqlmodel==0.0.38
-uvicorn==0.42.0
+uvicorn==0.43.0
